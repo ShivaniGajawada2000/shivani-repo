@@ -35,8 +35,8 @@ public class ProductServiceImplTest {
     @Test
     public void testGetAllProducts() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(1L, "Product1", 10.0));
-        productList.add(new Product(2L, "Product2", 20.0));
+        productList.add(new Product(1, "Product1", 10.0));
+        productList.add(new Product(2, "Product2", 20.0));
         when(productRepository.findAll()).thenReturn(productList);
 
         List<Product> result = productService.getAllProducts();
@@ -47,7 +47,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testGetProductById() {
-        Long productId = 1L;
+        int productId = 1;
         Product product = new Product(productId, "Product1", 10.0);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
 
@@ -60,7 +60,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testSaveProduct() {
-        Product product = new Product(1L, "Product1", 10.0);
+        Product product = new Product(1, "Product1", 10.0);
         when(productRepository.save(product)).thenReturn(product);
 
         Product result = productService.saveProduct(product);
@@ -72,13 +72,13 @@ public class ProductServiceImplTest {
 
     @Test
     public void testUpdateProduct() {
-        Long productId = 1L;
+        int productId = 1;
         Product existingProduct = new Product(productId, "Product1", 10.0);
         Product updatedProduct = new Product(productId, "Updated Product", 15.0);
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
         when(productRepository.save(existingProduct)).thenReturn(updatedProduct);
 
-        Product result = productService.updateProduct(updatedProduct, productId);
+        Product result = productService.updateProduct(updatedProduct);
 
         verify(productRepository, times(1)).findById(productId);
         verify(productRepository, times(1)).save(existingProduct);
@@ -88,7 +88,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testDeleteProduct() {
-        Long productId = 1L;
+        int productId = 1;
         doNothing().when(productRepository).deleteById(productId);
 
         String result = productService.deleteProduct(productId);
@@ -102,12 +102,12 @@ public class ProductServiceImplTest {
     public void testGetAllProductsHavingPriceLessThan() {
         // Mocking data
         double price = 100.0;
-        Product product1 = new Product(1L, "Product1", 90.0);
-        Product product2 = new Product(2L, "Product2", 110.0);
+        Product product1 = new Product(1, "Product1", 90.0);
+        Product product2 = new Product(2, "Product2", 110.0);
         List<Product> productList = Arrays.asList(product1, product2);
 
         // Mocking the repository method
-        when(productRepository.findProductsLessThanPrice(price)).thenReturn(productList);
+        when(productRepository.findByProductPriceLessThan(price)).thenReturn(productList);
 
         // Calling the service method
         List<Product> result = productService.getAllProductsHavingPriceLessThan(price);
@@ -115,13 +115,13 @@ public class ProductServiceImplTest {
         // Verifying the result
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getName()).isEqualTo("Product1");
-        assertThat(result.get(0).getPrice()).isEqualTo(90.0);
-        assertThat(result.get(1).getName()).isEqualTo("Product2");
-        assertThat(result.get(1).getPrice()).isEqualTo(110.0);
+        assertThat(result.get(0).getProductName()).isEqualTo("Product1");
+        assertThat(result.get(0).getProductPrice()).isEqualTo(90.0);
+        assertThat(result.get(1).getProductName()).isEqualTo("Product2");
+        assertThat(result.get(1).getProductPrice()).isEqualTo(110.0);
 
         // Verifying that the repository method was called
-        verify(productRepository, times(1)).findProductsLessThanPrice(price);
+        verify(productRepository, times(1)).findByProductPriceLessThan(price);
     }
 }
 

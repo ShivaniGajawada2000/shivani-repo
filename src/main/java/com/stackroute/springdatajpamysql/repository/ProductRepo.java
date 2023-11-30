@@ -1,6 +1,16 @@
 package com.stackroute.springdatajpamysql.repository;
 
 
-//Create ProductRepo interface extending JpaRepository
-public interface ProductRepo {
+
+
+
+import com.stackroute.springdatajpamysql.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface ProductRepo extends JpaRepository<Product, Integer> {
+    // Add custom query methods if needed
+    List<Product> findByProductPriceLessThan(double price);
 }

@@ -1,6 +1,22 @@
+
 package com.stackroute.springdatajpamysql.service;
 
-//Create service interface here
+import com.stackroute.springdatajpamysql.entity.Product;
+
+import java.util.List;
+import java.util.Optional;
+
 public interface ProductService {
-    //Add abstract methods here
+    List<Product> getAllProducts();
+
+    Product getProductById(int productId);
+
+    Product saveProduct(Product product);
+
+    Product updateProduct(Product product);
+
+    String deleteProduct(int productId);
+
+    List<Product> getAllProductsHavingPriceLessThan(double price);
 }
+
