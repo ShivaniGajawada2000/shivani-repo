@@ -37,21 +37,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Product product) {
-    	Optional<Product> optionalProduct= productRepository.findById(product.getProductId());
+    public Product updateProduct(Long productId,Product product) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isPresent()) {
-           
             Product existingProduct = optionalProduct.get();
-            existingProduct.setProductName(product.getProductName());
-            existingProduct.setProductPrice(product.getProductPrice());
-            
+            existingProduct.setName(product.getName());
+            existingProduct.setPrice(product.getPrice());
             return productRepository.save(existingProduct);
         } else {
-            
+           
             return null;
         }
-      
     }
+
 
     @Override
     public String deleteProduct(Long productId) {
@@ -66,6 +64,6 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getAllProductsHavingPriceLessThan(double price) {
-        return productRepository.findByProductPriceLessThan(price);
+        return productRepository.findProductsLessThanPrice(price);
     }
 }

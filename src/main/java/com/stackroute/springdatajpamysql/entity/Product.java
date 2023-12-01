@@ -4,48 +4,63 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 @Entity
 @Table
 public class Product {
     //Add Product entity fields, constructors and getters/setters here
 	@Id
-	
 	private Long productId;
-	@Column(name="product_name")
-	private String productName;
-	@Column(name="propuct_price")
-	private double productPrice;
+	@Column
+	private String name;
+	@Column
+	private double price;
 	
 	
 	public Product(){
 		
 	}
-	public Product(Long productId, String productName, double productPrice) {
+	
+
+	public Product(Long productId, String name, double price) {
 		super();
 		this.productId = productId;
-		this.productName = productName;
-		this.productPrice = productPrice;
+		this.name = name;
+		this.price = price;
 	}
-	
+
+
 	public Long getProductId() {
 		return productId;
 	}
+
+
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	public String getProductName() {
-		return productName;
+
+
+	public String getName() {
+		return name;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public double getProductPrice() {
-		return productPrice;
+
+
+	public double getPrice() {
+		return price;
 	}
-	public void setProductPrice(double productPrice) {
-		this.productPrice = productPrice;
+
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
+
+
+	
+
 	
 	
 

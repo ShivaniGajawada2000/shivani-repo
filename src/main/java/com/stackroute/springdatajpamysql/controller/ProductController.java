@@ -50,8 +50,8 @@ public class ProductController {
 
 	      
 	    @PutMapping("/product")
-	    public ResponseEntity<Product> updateProduct( @RequestBody Product product) {
-	        Product updatedProduct = productService.updateProduct(product);
+	    public ResponseEntity<Product> updateProduct(@RequestBody Long productId, @RequestBody Product product) {
+	        Product updatedProduct = productService.updateProduct(productId,product);
 	        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
 	    }
 	    

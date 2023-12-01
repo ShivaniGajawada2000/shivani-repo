@@ -33,12 +33,12 @@ public class ProductRepoTest {
     @Test
     public void testFindAll() {
         List<Product> productList = Arrays.asList(
-                new Product( 1L, "Product1", 10.0),
-                new Product( 2L, "Product2", 20.0)
+                new Product(1L, "Product1", 10.0),
+                new Product(2L, "Product2", 20.0)
         );
         when(productRepo.findAll()).thenReturn(productList);
 
-        List<Product> result = (List<Product>) productRepo.findAll();
+        List<Product> result = productRepo.findAll();
 
         verify(productRepo, times(1)).findAll();
         assertEquals(2, result.size());
@@ -46,7 +46,7 @@ public class ProductRepoTest {
 
     @Test
     public void testFindById() {
-        Long productId=1L;
+        Long productId = 1L;
         Product product = new Product(productId, "Product1", 10.0);
         when(productRepo.findById(productId)).thenReturn(Optional.of(product));
 
@@ -58,7 +58,7 @@ public class ProductRepoTest {
 
     @Test
     public void testSave() {
-        Product product = new Product( 1L, "Product1", 10.0);
+        Product product = new Product(1L, "Product1", 10.0);
         when(productRepo.save(product)).thenReturn(product);
 
         Product result = productRepo.save(product);
@@ -79,7 +79,7 @@ public class ProductRepoTest {
         // Mock the save method to return the updatedProduct when called with any Product
         when(productRepo.save(any(Product.class))).thenReturn(updatedProduct);
 
-        Product result = productService.updateProduct(updatedProduct);
+        Product result = productService.updateProduct(productId, updatedProduct);
 
         verify(productRepo, times(1)).findById(productId);
         verify(productRepo, times(1)).save(existingProduct);
@@ -106,7 +106,7 @@ public class ProductRepoTest {
         List<Product> productList = Arrays.asList(product1, product2);
 
         // Mocking the repository method
-        when(productRepo.findByProductPriceLessThan(price)).thenReturn(productList);
+        when(productRepo.findProductsLessThanPrice(price)).thenReturn(productList);
 
         // Calling the service method that uses the repository method
         List<Product> result = productService.getAllProductsHavingPriceLessThan(price);
@@ -117,7 +117,7 @@ public class ProductRepoTest {
         // Add additional assertions based on your data
 
         // Verifying that the repository method was called
-        verify(productRepo, times(1)).findByProductPriceLessThan(price);
+        verify(productRepo, times(1)).findProductsLessThanPrice(price);
     }
 
 }

@@ -78,7 +78,7 @@ public class ProductServiceImplTest {
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
         when(productRepository.save(existingProduct)).thenReturn(updatedProduct);
 
-        Product result = productService.updateProduct(updatedProduct);
+        Product result = productService.updateProduct(productId, updatedProduct);
 
         verify(productRepository, times(1)).findById(productId);
         verify(productRepository, times(1)).save(existingProduct);
@@ -107,7 +107,7 @@ public class ProductServiceImplTest {
         List<Product> productList = Arrays.asList(product1, product2);
 
         // Mocking the repository method
-        when(productRepository.findByProductPriceLessThan(price)).thenReturn(productList);
+        when(productRepository.findProductsLessThanPrice(price)).thenReturn(productList);
 
         // Calling the service method
         List<Product> result = productService.getAllProductsHavingPriceLessThan(price);
@@ -115,13 +115,13 @@ public class ProductServiceImplTest {
         // Verifying the result
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getProductName()).isEqualTo("Product1");
-        assertThat(result.get(0).getProductPrice()).isEqualTo(90.0);
-        assertThat(result.get(1).getProductName()).isEqualTo("Product2");
-        assertThat(result.get(1).getProductPrice()).isEqualTo(110.0);
+        assertThat(result.get(0).getName()).isEqualTo("Product1");
+        assertThat(result.get(0).getPrice()).isEqualTo(90.0);
+        assertThat(result.get(1).getName()).isEqualTo("Product2");
+        assertThat(result.get(1).getPrice()).isEqualTo(110.0);
 
         // Verifying that the repository method was called
-        verify(productRepository, times(1)).findByProductPriceLessThan(price);
+        verify(productRepository, times(1)).findProductsLessThanPrice(price);
     }
 }
 

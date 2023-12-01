@@ -72,19 +72,20 @@ public class ProductControllerTest {
 
     @Test
     public void testUpdateProduct() {
-               Product updatedProduct = someProduct();
-        when(productService.updateProduct(updatedProduct)).thenReturn(updatedProduct);
+        Long productId = 1L;
+        Product updatedProduct = someProduct();
+        when(productService.updateProduct(productId, updatedProduct)).thenReturn(updatedProduct);
 
-        ResponseEntity<?> response = productController.updateProduct(updatedProduct);
+        ResponseEntity<?> response = productController.updateProduct(productId, updatedProduct);
 
-        verify(productService, times(1)).updateProduct(updatedProduct);
+        verify(productService, times(1)).updateProduct(productId, updatedProduct);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(updatedProduct, response.getBody());
     }
 
-   /* @Test
+    @Test
     public void testDeleteProduct() {
-        int productId = 1;
+        Long productId = 1L;
         when(productService.deleteProduct(productId)).thenReturn("Product Deleted");
 
         ResponseEntity<?> response = productController.deleteProduct(productId);
@@ -92,13 +93,13 @@ public class ProductControllerTest {
         verify(productService, times(1)).deleteProduct(productId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Product Deleted", response.getBody());
-    }*/
+    }
 
     @Test
     public void testGetAllProductsHavingPriceLessThan() {
         // Mocking data
         double price = 100.0;
-        Product product1 = new Product(1L, "product", price);
+        Product product1 = new Product(1L, "Product1", 90.0);
         Product product2 = new Product(2L, "Product2", 110.0);
         List<Product> productList = Arrays.asList(product1, product2);
 
@@ -117,10 +118,10 @@ public class ProductControllerTest {
         assertTrue(responseEntity.getBody() instanceof List);
         List<Product> result = (List<Product>) responseEntity.getBody();
         assertEquals(2, result.size());
-        assertEquals("Product1", result.get(0).getProductName());
-        assertEquals(90.0, result.get(0).getProductPrice());
-        assertEquals("Product2", result.get(1).getProductName());
-        assertEquals(110.0, result.get(1).getProductPrice());
+        assertEquals("Product1", result.get(0).getName());
+        assertEquals(90.0, result.get(0).getPrice());
+        assertEquals("Product2", result.get(1).getName());
+        assertEquals(110.0, result.get(1).getPrice());
 
         // Verifying that the service method was called
         verify(productService, times(1)).getAllProductsHavingPriceLessThan(price);

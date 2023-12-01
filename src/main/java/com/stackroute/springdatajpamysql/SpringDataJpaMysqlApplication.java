@@ -2,12 +2,12 @@ package com.stackroute.springdatajpamysql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories(basePackages = "com.stackroute.springdatajpamysql.repository")
 public class SpringDataJpaMysqlApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SpringDataJpaMysqlApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(SpringDataJpaMysqlApplication.class, args);
+    }
 }

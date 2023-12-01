@@ -13,7 +13,7 @@ public interface ProductService {
 
     Product saveProduct(Product product);
 
-    Product updateProduct(Product product);
+    Product updateProduct(Long productId,Product product);
 
     String deleteProduct(Long productId);
 
