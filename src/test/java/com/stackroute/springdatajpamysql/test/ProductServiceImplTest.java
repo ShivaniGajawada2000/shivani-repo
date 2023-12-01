@@ -78,7 +78,7 @@ public class ProductServiceImplTest {
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
         when(productRepository.save(existingProduct)).thenReturn(updatedProduct);
 
-        Product result = productService.updateProduct(productId, updatedProduct);
+        Product result = productService.updateProduct(updatedProduct, productId);
 
         verify(productRepository, times(1)).findById(productId);
         verify(productRepository, times(1)).save(existingProduct);

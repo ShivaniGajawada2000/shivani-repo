@@ -19,56 +19,44 @@ import com.stackroute.springdatajpamysql.service.ProductService;
 
 @Controller
 @RequestMapping("/api")
+
 public class ProductController {
     // Add controllers here for CRUD operations on Product entity.
-	  private final ProductService productService;
-	    @Autowired
-	    public ProductController(ProductService productService) {
-	        this.productService = productService;
-	    }
-
-	    @GetMapping("/products")
-	    public ResponseEntity<List<Product>> getAllProducts() {
-	        List<Product> products = productService.getAllProducts();
-	        return new ResponseEntity<>(products, HttpStatus.OK);
-	    }
-
-	    @GetMapping("/{productId}")
-	    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
-	        Product product = productService.getProductById(productId);
-	        
-	        return new ResponseEntity<>(product, HttpStatus.OK);
-	        
-	    }
-	   
-
-	    @PostMapping("/product")
-	    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-	        Product savedProduct = productService.saveProduct(product);
-	        return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
-	    }
-
-	      
-	    @PutMapping("/product")
-	    public ResponseEntity<Product> updateProduct(@RequestBody Long productId, @RequestBody Product product) {
-	        Product updatedProduct = productService.updateProduct(productId,product);
-	        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-	    }
-	    
-
-	    @DeleteMapping("/{productId}")
-	    public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
-	        String s=productService.deleteProduct(productId);
-	        return new ResponseEntity<>(s,HttpStatus.OK);
-	    }
-
-	    @GetMapping("/priceLessThan/{price}")
-	    public ResponseEntity<List<Product>> getAllProductsHavingPriceLessThan(@PathVariable double price) {
-	        List<Product> products = productService.getAllProductsHavingPriceLessThan(price);
-	        return new ResponseEntity<>(products, HttpStatus.OK);
-	    }
-	}
-	
+    private final ProductService productService;
+    @Autowired
+    public ProductController(ProductService productService){
+        this.productService = productService;
+    }
+ 
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts(); // Call service interface method
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/products/{price}")
+    public ResponseEntity<List<Product>> getAllProductsHavingPriceLessThan(@PathVariable double price) {
+        List<Product> products = productService.getAllProductsHavingPriceLessThan(price); // Call service interface method
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("products/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id) {
+        Product product = productService.getProductById(id); // Call service interface method
+        return ResponseEntity.ok(product);
+    }
+    @PostMapping("/products")
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+        return ResponseEntity.ok(productService.saveProduct(product));
+    }
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("id") long id) {
+        productService.deleteProduct(id); // Call service interface method
+        return ResponseEntity.ok("Product Deleted");
+    }
+    @PutMapping("products/{id}")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable long id ){
+        return ResponseEntity.ok(productService.updateProduct(product, id));
+    }
+}
 
 
 

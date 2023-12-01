@@ -79,7 +79,7 @@ public class ProductRepoTest {
         // Mock the save method to return the updatedProduct when called with any Product
         when(productRepo.save(any(Product.class))).thenReturn(updatedProduct);
 
-        Product result = productService.updateProduct(productId, updatedProduct);
+        Product result = productService.updateProduct(updatedProduct, productId);
 
         verify(productRepo, times(1)).findById(productId);
         verify(productRepo, times(1)).save(existingProduct);

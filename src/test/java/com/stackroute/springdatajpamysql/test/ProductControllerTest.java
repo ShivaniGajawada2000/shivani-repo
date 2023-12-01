@@ -74,11 +74,11 @@ public class ProductControllerTest {
     public void testUpdateProduct() {
         Long productId = 1L;
         Product updatedProduct = someProduct();
-        when(productService.updateProduct(productId, updatedProduct)).thenReturn(updatedProduct);
+        when(productService.updateProduct(updatedProduct, productId)).thenReturn(updatedProduct);
 
-        ResponseEntity<?> response = productController.updateProduct(productId, updatedProduct);
+        ResponseEntity<?> response = productController.updateProduct(updatedProduct, productId);
 
-        verify(productService, times(1)).updateProduct(productId, updatedProduct);
+        verify(productService, times(1)).updateProduct(updatedProduct, productId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(updatedProduct, response.getBody());
     }

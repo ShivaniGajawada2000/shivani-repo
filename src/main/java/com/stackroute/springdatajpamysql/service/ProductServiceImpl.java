@@ -10,60 +10,45 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
-
-	private final ProductRepo productRepository;
-
+public class ProductServiceImpl  implements ProductService  {
+    //Override all the methods here
+ 
     @Autowired
-    public ProductServiceImpl(ProductRepo productRepository) {
-        this.productRepository = productRepository;
-    }
-
+    private ProductRepo productRepo;
+ 
     @Override
     public List<Product> getAllProducts() {
-        return (List<Product>) productRepository.findAll();
+        return productRepo.findAll();
     }
-
-    @Override
-    public Product getProductById(Long productId) {
-        Optional <Product> product=productRepository.findById(productId);
-        return product.orElse(null);
-    }
-    
-
-    @Override
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
-    public Product updateProduct(Long productId,Product product) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if (optionalProduct.isPresent()) {
-            Product existingProduct = optionalProduct.get();
-            existingProduct.setName(product.getName());
-            existingProduct.setPrice(product.getPrice());
-            return productRepository.save(existingProduct);
-        } else {
-           
-            return null;
-        }
-    }
-
-
-    @Override
-    public String deleteProduct(Long productId) {
-        
-        if (productRepository.existsById(productId)) {
-            productRepository.deleteById(productId);
-            return "Product deleted successfully";
-        } else {
-            return "Product not found";
-        }
-    }
-
     @Override
     public List<Product> getAllProductsHavingPriceLessThan(double price) {
-        return productRepository.findProductsLessThanPrice(price);
+        return productRepo.findProductsLessThanPrice(price);
+    }
+ 
+ 
+ 
+    @Override
+    public Product getProductById(long id) {
+        return productRepo.findById(id).orElse(null);
+    }
+    public Product saveProduct(Product product) {
+        return productRepo.save(product);
+ 
+    }
+    @Override
+    public Product updateProduct(Product product, long id) {
+        Optional<Product> product1 = productRepo.findById(product.getProductId());
+        if(product1.isPresent()) {
+            Product tempProd = product1.get();
+            tempProd.setName(product.getName());
+            tempProd.setPrice(product.getPrice());
+            return productRepo.save(tempProd);
+        }
+        return null;
+    }
+    @Override
+    public String deleteProduct(long id) {
+        productRepo.deleteById(id);
+        return "Product Deleted";
     }
 }
