@@ -35,8 +35,8 @@ public class ProductServiceImplTest {
     @Test
     public void testGetAllProducts() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(1, "Product1", 10.0));
-        productList.add(new Product(2, "Product2", 20.0));
+        productList.add(new Product(1L, "Product1", 10.0));
+        productList.add(new Product(2L, "Product2", 20.0));
         when(productRepository.findAll()).thenReturn(productList);
 
         List<Product> result = productService.getAllProducts();
@@ -47,7 +47,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testGetProductById() {
-        int productId = 1;
+        Long productId = 1L;
         Product product = new Product(productId, "Product1", 10.0);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
 
@@ -60,7 +60,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testSaveProduct() {
-        Product product = new Product(1, "Product1", 10.0);
+        Product product = new Product(1L, "Product1", 10.0);
         when(productRepository.save(product)).thenReturn(product);
 
         Product result = productService.saveProduct(product);
@@ -72,7 +72,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testUpdateProduct() {
-        int productId = 1;
+        Long productId = 1L;
         Product existingProduct = new Product(productId, "Product1", 10.0);
         Product updatedProduct = new Product(productId, "Updated Product", 15.0);
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
@@ -88,7 +88,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void testDeleteProduct() {
-        int productId = 1;
+        Long productId = 1L;
         doNothing().when(productRepository).deleteById(productId);
 
         String result = productService.deleteProduct(productId);
@@ -102,8 +102,8 @@ public class ProductServiceImplTest {
     public void testGetAllProductsHavingPriceLessThan() {
         // Mocking data
         double price = 100.0;
-        Product product1 = new Product(1, "Product1", 90.0);
-        Product product2 = new Product(2, "Product2", 110.0);
+        Product product1 = new Product(1L, "Product1", 90.0);
+        Product product2 = new Product(2L, "Product2", 110.0);
         List<Product> productList = Arrays.asList(product1, product2);
 
         // Mocking the repository method

@@ -11,7 +11,7 @@ public class Product {
     //Add Product entity fields, constructors and getters/setters here
 	@Id
 	
-	private int productId;
+	private Long productId;
 	@Column(name="product_name")
 	private String productName;
 	@Column(name="propuct_price")
@@ -21,17 +21,17 @@ public class Product {
 	public Product(){
 		
 	}
-	public Product(int productId, String productName, double productPrice) {
+	public Product(Long productId, String productName, double productPrice) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productPrice = productPrice;
 	}
 	
-	public int getProductId() {
+	public Long getProductId() {
 		return productId;
 	}
-	public void setProductId(int productId) {
+	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
 	public String getProductName() {

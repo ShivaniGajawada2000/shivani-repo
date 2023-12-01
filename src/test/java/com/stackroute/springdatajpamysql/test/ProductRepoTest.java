@@ -33,8 +33,8 @@ public class ProductRepoTest {
     @Test
     public void testFindAll() {
         List<Product> productList = Arrays.asList(
-                new Product((int) 1L, "Product1", 10.0),
-                new Product((int) 2L, "Product2", 20.0)
+                new Product( 1L, "Product1", 10.0),
+                new Product( 2L, "Product2", 20.0)
         );
         when(productRepo.findAll()).thenReturn(productList);
 
@@ -46,7 +46,7 @@ public class ProductRepoTest {
 
     @Test
     public void testFindById() {
-        int productId = 1;
+        Long productId=1L;
         Product product = new Product(productId, "Product1", 10.0);
         when(productRepo.findById(productId)).thenReturn(Optional.of(product));
 
@@ -58,7 +58,7 @@ public class ProductRepoTest {
 
     @Test
     public void testSave() {
-        Product product = new Product((int) 1L, "Product1", 10.0);
+        Product product = new Product( 1L, "Product1", 10.0);
         when(productRepo.save(product)).thenReturn(product);
 
         Product result = productRepo.save(product);
@@ -69,7 +69,7 @@ public class ProductRepoTest {
 
     @Test
     public void testUpdateProduct() {
-        int productId = 1;
+        Long productId = 1L;
         Product existingProduct = new Product(productId, "Product1", 10.0);
         Product updatedProduct = new Product(productId, "Updated Product", 15.0);
 
@@ -89,7 +89,7 @@ public class ProductRepoTest {
 
     @Test
     public void testDelete() {
-        int productId = 1;
+        Long productId = 1L;
         doNothing().when(productRepo).deleteById(productId);
 
         productRepo.deleteById(productId);
@@ -101,8 +101,8 @@ public class ProductRepoTest {
     public void testFindProductsLessThanPrice() {
         // Mocking data
         double price = 100.0;
-        Product product1 = new Product(1, "Product1", 90.0);
-        Product product2 = new Product(2, "Product2", 110.0);
+        Product product1 = new Product(1L, "Product1", 90.0);
+        Product product2 = new Product(2L, "Product2", 110.0);
         List<Product> productList = Arrays.asList(product1, product2);
 
         // Mocking the repository method

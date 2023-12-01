@@ -9,13 +9,13 @@ import java.util.Optional;
 public interface ProductService {
     List<Product> getAllProducts();
 
-    Product getProductById(int productId);
+    Product getProductById(Long productId);
 
     Product saveProduct(Product product);
 
     Product updateProduct(Product product);
 
-    String deleteProduct(int productId);
+    String deleteProduct(Long productId);
 
     List<Product> getAllProductsHavingPriceLessThan(double price);
 }

@@ -45,7 +45,7 @@ public class ProductControllerTest {
 
     @Test
     public void testGetProductById() {
-        int productId = 1;
+        Long productId = 1L;
         Product expectedProduct = new Product(productId, "Sample Product", 9.99);
         when(productService.getProductById(productId)).thenReturn(expectedProduct);
 
@@ -98,8 +98,8 @@ public class ProductControllerTest {
     public void testGetAllProductsHavingPriceLessThan() {
         // Mocking data
         double price = 100.0;
-        Product product1 = new Product(1, "product", price);
-        Product product2 = new Product(2, "Product2", 110.0);
+        Product product1 = new Product(1L, "product", price);
+        Product product2 = new Product(2L, "Product2", 110.0);
         List<Product> productList = Arrays.asList(product1, product2);
 
         // Mocking the service method
@@ -127,7 +127,7 @@ public class ProductControllerTest {
     }
 
     private Product someProduct() {
-        return new Product(1, "Sample Product", 9.99);
+        return new Product(1L, "Sample Product", 9.99);
     }
 
     private List<Product> someListOfProducts() {
