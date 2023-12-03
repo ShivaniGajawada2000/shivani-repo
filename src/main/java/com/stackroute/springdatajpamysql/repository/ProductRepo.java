@@ -1,9 +1,4 @@
 package com.stackroute.springdatajpamysql.repository;
-
-
-
-
-
 import com.stackroute.springdatajpamysql.entity.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
