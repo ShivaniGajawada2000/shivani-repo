@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Long> {
-    @Query("SELECT product FROM Product p WHERE p.price < :price")
+    @Query("SELECT p FROM Product p WHERE p.price < :price")
     List<Product> findProductsLessThanPrice(@Param("price") Double price);
 }
