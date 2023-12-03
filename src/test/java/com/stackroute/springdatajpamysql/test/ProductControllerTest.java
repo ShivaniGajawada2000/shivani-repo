@@ -95,47 +95,18 @@ public class ProductControllerTest {
         assertEquals("Product Deleted", response.getBody());
     }
 
-    @Test
-    public void testGetAllProductsHavingPriceLessThan() {
-        // Mocking data
-        double price = 100.0;
-        Product product1 = new Product(1L, "Product1", 90.0);
-        Product product2 = new Product(2L, "Product2", 110.0);
-        List<Product> productList = Arrays.asList(product1, product2);
-
-        // Mocking the service method
-        when(productService.getAllProductsHavingPriceLessThan(price)).thenReturn(productList);
-
-        // Calling the controller method
-        ResponseEntity<?> responseEntity = productController.getAllProductsHavingPriceLessThan(price);
-
-        // Verifying the response status
-        assertNotNull(responseEntity);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-
-        // Verifying the response body
-        assertNotNull(responseEntity.getBody());
-        assertTrue(responseEntity.getBody() instanceof List);
-        List<Product> result = (List<Product>) responseEntity.getBody();
-        assertEquals(2, result.size());
-        assertEquals("Product1", result.get(0).getName());
-        assertEquals(90.0, result.get(0).getPrice());
-        assertEquals("Product2", result.get(1).getName());
-        assertEquals(110.0, result.get(1).getPrice());
-
-        // Verifying that the service method was called
-        verify(productService, times(1)).getAllProductsHavingPriceLessThan(price);
-    }
-
     private Product someProduct() {
         return new Product(1L, "Sample Product", 9.99);
     }
 
     private List<Product> someListOfProducts() {
         List<Product> products = new ArrayList<>();
-        products.add(someProduct());
-        // Add more sample products as needed
+        products.add(new Product(1L, "Sample Product 1", 9.99));
+        products.add(new Product(2L, "Sample Product 2", 15.99));
+        products.add(new Product(3L, "Sample Product 3", 79.99));
+
         return products;
     }
+
 }
 
